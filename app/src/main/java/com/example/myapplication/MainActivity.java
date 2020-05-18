@@ -1,17 +1,23 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
+    ConstraintLayout constraintLayout;
 
+    static String pathString = "";
     static int N = 4;
 
     // final_path[] stores the final solution ie, the
@@ -30,35 +36,71 @@ public class MainActivity extends AppCompatActivity {
             {15, 35, 0, 30},
             {290, 25, 30, 0} };
 
+
+    Button showCost;
+    Button showPath;
     TextView textView;
-    Button button;
+    TextView textView1;
+    TextView optimal_path;
+
+    int numberOfNodes = 0;
+    String s = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = findViewById(R.id.textView);
-        button = findViewById(R.id.button);
+        constraintLayout = findViewById(R.id.background);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
+
+        showCost = findViewById(R.id.show_cost_button);
+        showPath = findViewById(R.id.show_path_button);
+        textView = findViewById(R.id.cost);
+        textView1 = findViewById(R.id.number_of_nodes);
+        optimal_path = findViewById(R.id.path);
+
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        numberOfNodes = bundle.getInt("nodes");
+
+        s = "Number of Nodes : " + numberOfNodes;
+
+        textView1.setText(s);
 
         TSP(adj);
+        path();
 
-
-
-        button.setOnClickListener(new View.OnClickListener() {
+        showCost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 textView.setText(Integer.toString(final_res));
             }
         });
 
+        showPath.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                optimal_path.setText(pathString);
+            }
+        });
+
     }
 
-
+    static void path(){
+        for (int i = 0; i < N; i++) {
+            pathString += final_path[i] + " -> ";
+        }
+        pathString += final_path[0];
+    }
 
     static void copyToFinal(int[] curr_path)
     {
         if (N >= 0) System.arraycopy(curr_path, 0, final_path, 0, N);
+
         final_path[N] = curr_path[0];
     }
 
