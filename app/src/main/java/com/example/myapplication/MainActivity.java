@@ -31,10 +31,21 @@ public class MainActivity extends AppCompatActivity {
     // Stores the final minimum weight of shortest tour.
     static int final_res = Integer.MAX_VALUE;
 
-    public int[][] adj = {{0, 10, 15, 20},
-            {10, 0, 35, 25},
-            {15, 35, 0, 30},
-            {20, 25, 30, 0} };
+    public int[][] adj =
+            {
+            {0, 10, 15, 20,  0,0,0,0,0,0,0,0},
+            {10, 0, 35, 25, 0,0,0,0,0,0,0,0},
+            {15, 35, 0, 30, 0,0,0,0,0,0,0,0},
+            {20, 25, 30, 0,  0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0, 0,0,0,0,0,0},
+            {0,0,0,0,0,0, 0,0,0,0,0,0},
+            {0,0,0,0,0,0, 0,0,0,0,0,0},
+            {0,0,0,0,0,0, 0,0,0,0,0,0},
+            {0,0,0,0,0,0, 0,0,0,0,0,0},
+            {0,0,0,0,0,0, 0,0,0,0,0,0},
+            {0,0,0,0,0,0, 0,0,0,0,0,0},
+            {0,0,0,0,0,0, 0,0,0,0,0,0},
+            };
 
     Button showCost;
     Button showPath;
@@ -43,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     TextView optimal_path;
 
     int numberOfNodes = 0;
-    int edgeCost = 0;
+    int[][] edgeCost;
     String s = "";
 
     @Override
@@ -60,10 +71,11 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         numberOfNodes = bundle.getInt("nodes");
-        //edgeCost = bundle.getInt("edge");
+        edgeCost = (int[][]) bundle.getSerializable("matrix");
+
+        adj = edgeCost;
 
         s = "Number of Nodes : " + numberOfNodes;
-        //adj[1][3] = edgeCost;
 
         textView1.setText(s);
 
