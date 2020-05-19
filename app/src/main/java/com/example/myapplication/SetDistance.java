@@ -9,13 +9,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class SetDistance extends AppCompatActivity {
 
-    EditText editText;
+    EditText distance;
     TextView textView;
     TextView nodes;
     Button previous;
     Button next;
+    Button TSPbutton;
+    Button setDistance;
+    Button setNodes;
 
     int counter = 0;
 
@@ -28,8 +33,11 @@ public class SetDistance extends AppCompatActivity {
         nodes = findViewById(R.id.nodes);
         previous = findViewById(R.id.previous);
         next = findViewById(R.id.next);
-        editText = findViewById(R.id.editText);
-
+        distance = findViewById(R.id.distance);
+        textView = findViewById(R.id.textView);
+        TSPbutton = findViewById(R.id.toTSP_button);
+        setDistance = findViewById(R.id.setdistance);
+        setNodes = findViewById(R.id.setbutton);
 
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +72,36 @@ public class SetDistance extends AppCompatActivity {
                 return true;
             }
         });
+
+        setNodes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setNodes.setEnabled(false);
+                previous.setEnabled(false);
+                next.setEnabled(false);
+                setDistance.setVisibility(View.VISIBLE);
+            }
+        });
+
+        setDistance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int edgeCost = Integer.parseInt(distance.getText().toString());
+                textView.setText(Integer.toString(edgeCost));
+
+                Intent intent = new Intent(SetDistance.this, MainActivity.class);
+
+                Bundle bundle = new Bundle();
+
+                bundle.putInt("edge", edgeCost);
+
+                intent.putExtras(bundle);
+                startActivity(intent);
+
+            }
+        });
+
 
     }
 

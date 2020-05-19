@@ -31,11 +31,10 @@ public class MainActivity extends AppCompatActivity {
     // Stores the final minimum weight of shortest tour.
     static int final_res = Integer.MAX_VALUE;
 
-    public int[][] adj = {{0, 190, 85, 20},
+    public int[][] adj = {{0, 10, 15, 20},
             {10, 0, 35, 25},
             {15, 35, 0, 30},
-            {290, 25, 30, 0} };
-
+            {20, 25, 30, 0} };
 
     Button showCost;
     Button showPath;
@@ -44,18 +43,13 @@ public class MainActivity extends AppCompatActivity {
     TextView optimal_path;
 
     int numberOfNodes = 0;
+    int edgeCost = 0;
     String s = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        constraintLayout = findViewById(R.id.background);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
 
         showCost = findViewById(R.id.show_cost_button);
         showPath = findViewById(R.id.show_path_button);
@@ -66,8 +60,10 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         numberOfNodes = bundle.getInt("nodes");
+        //edgeCost = bundle.getInt("edge");
 
         s = "Number of Nodes : " + numberOfNodes;
+        //adj[1][3] = edgeCost;
 
         textView1.setText(s);
 
@@ -84,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         showPath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                optimal_path.setText(" ");
                 optimal_path.setText(pathString);
             }
         });
