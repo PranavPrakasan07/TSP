@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SetDistance extends AppCompatActivity {
@@ -176,16 +175,24 @@ public class SetDistance extends AppCompatActivity {
                 adjMatrix[i][j] = edgeCost;
                 adjMatrix[j][i] = edgeCost;
 
+                if(j == counter-1){
+                    i += 1;
+                    j = i;
+                }
+
                 if (i<counter-1) {
                     message = "Enter Edge Cost of : " + nodeList.get(i) + " - " + nodeList.get(++j);
                 }
                 else{
                     setDistance.setEnabled(false);
-                }
+                    Intent intent = new Intent(SetDistance.this, MainActivity.class);
 
-                if(j == counter-1){
-                    i += 1;
-                    j = i;
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("nodes", counter);
+                    bundle.putSerializable("matrix", adjMatrix);
+
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
 
                 textView.setText(message);
@@ -208,17 +215,16 @@ public class SetDistance extends AppCompatActivity {
 
     }
 
+//    public void onClick(View v)
+//    {
+//        Intent intent = new Intent(SetDistance.this, MainActivity.class);
+//
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("nodes", counter);
+//        bundle.putSerializable("matrix", adjMatrix);
+//
+//        intent.putExtras(bundle);
+//        startActivity(intent);
+//    }
 
-    public void onClick(View v) {
-
-        Intent intent = new Intent(SetDistance.this, MainActivity.class);
-
-        Bundle bundle = new Bundle();
-        bundle.putInt("nodes", counter);
-        bundle.putSerializable("matrix", adjMatrix);
-
-        intent.putExtras(bundle);
-        startActivity(intent);
-
-    }
 }

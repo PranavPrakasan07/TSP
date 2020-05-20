@@ -1,21 +1,15 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
-
-    ConstraintLayout constraintLayout;
 
     static String pathString = "";
     static int N = 4;
@@ -85,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         showCost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(Integer.toString(final_res));
+                textView.setText(String.valueOf(final_res));
             }
         });
 
