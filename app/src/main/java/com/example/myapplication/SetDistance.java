@@ -28,7 +28,7 @@ public class SetDistance extends AppCompatActivity {
     int j = 1;
 
     int[][] adjMatrix =
-/*
+
         {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -43,7 +43,8 @@ public class SetDistance extends AppCompatActivity {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         };
-*/
+
+/*
     {
         {0, 10, 15, 20,  0, 0, 0, 0, 0, 0, 0, 0},
         {10, 0, 35, 25, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -58,7 +59,7 @@ public class SetDistance extends AppCompatActivity {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     };
-
+*/
     int[][] adjDefault =
             {
                     {0, 10, 15, 20,  0, 0, 0, 0, 0, 0, 0, 0},
@@ -214,17 +215,5 @@ public class SetDistance extends AppCompatActivity {
         });
 
     }
-
-//    public void onClick(View v)
-//    {
-//        Intent intent = new Intent(SetDistance.this, MainActivity.class);
-//
-//        Bundle bundle = new Bundle();
-//        bundle.putInt("nodes", counter);
-//        bundle.putSerializable("matrix", adjMatrix);
-//
-//        intent.putExtras(bundle);
-//        startActivity(intent);
-//    }
 
 }

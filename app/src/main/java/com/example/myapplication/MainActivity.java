@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity {
 
     static String pathString = "";
-    static int N = 4;
+    static int N = 12;
 
     // final_path[] stores the final solution ie, the
     // path of the salesman.
@@ -72,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
         s = "Number of Nodes : " + numberOfNodes;
 
         textView1.setText(s);
+
+        N = numberOfNodes;
 
         TSP(adj);
         path();
