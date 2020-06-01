@@ -44,22 +44,6 @@ public class SetDistance extends AppCompatActivity {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         };
 
-/*
-    {
-        {0, 10, 15, 20,  0, 0, 0, 0, 0, 0, 0, 0},
-        {10, 0, 35, 25, 0, 0, 0, 0, 0, 0, 0, 0},
-        {15, 35, 0, 30,  0, 0, 0, 0, 0, 0, 0, 0},
-        {20, 25, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-    };
-*/
     int[][] adjDefault =
             {
                     {0, 10, 15, 20,  0, 0, 0, 0, 0, 0, 0, 0},
@@ -73,7 +57,7 @@ public class SetDistance extends AppCompatActivity {
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
             };
 
     ArrayList <Integer> nodeList;
@@ -102,6 +86,9 @@ public class SetDistance extends AppCompatActivity {
                 if(counter < 2){
                     previous.setEnabled(false);
                 }
+                if(counter<12){
+                    next.setEnabled(true);
+                }
 
                 nodes.setText(String.valueOf(counter));
             }
@@ -115,6 +102,9 @@ public class SetDistance extends AppCompatActivity {
 
                 if(counter < 2){
                     previous.setEnabled(false);
+                }
+                if(counter<12){
+                    next.setEnabled(true);
                 }
 
                 nodes.setText(String.valueOf(counter));
@@ -131,6 +121,10 @@ public class SetDistance extends AppCompatActivity {
                     previous.setEnabled(true);
                 }
 
+                if(counter > 11){
+                    next.setEnabled(false);
+                }
+
                 nodes.setText(String.valueOf(counter));
             }
         });
@@ -143,6 +137,11 @@ public class SetDistance extends AppCompatActivity {
                 if(counter > 1){
                     previous.setEnabled(true);
                 }
+
+                if(counter > 11){
+                    next.setEnabled(false);
+                }
+
 
                 nodes.setText(String.valueOf(counter));
                 return true;
