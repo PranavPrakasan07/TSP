@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     static boolean[] visited = new boolean[N];
 
-    static int final_res = Integer.MAX_VALUE;
+    static int optimalValue = Integer.MAX_VALUE;
 
     public int[][] adj =
             {
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         showCost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(String.valueOf(final_res));
+                textView.setText(String.valueOf(optimalValue));
             }
         });
 
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         return min;
     }
     
-    static int secondMin(int[][] adj, int i)
+    static int nextMin(int[][] adj, int i)
     {
         int first = Integer.MAX_VALUE, second = Integer.MAX_VALUE;
         for (int j=0; j<N; j++)
@@ -126,21 +126,20 @@ public class MainActivity extends AppCompatActivity {
         return second;
     }
     
-    static void TSPRec(int[][] adj, int curr_bound, int curr_weight, int level, int[] curr_path)
+    static void findTSP(int[][] adj, int currentBound, int currentWeight, int level, int[] currentPath)
     {
         if (level == N)
         {
-
-            if (adj[curr_path[level - 1]][curr_path[0]] != 0)
+            if (adj[currentPath[level - 1]][currentPath[0]] != 0)
             {
-                int curr_res = curr_weight + adj[curr_path[level-1]][curr_path[0]];
+                int curr_res = currentWeight + adj[currentPath[level-1]][currentPath[0]];
                 
-                if (curr_res < final_res)
+                if (curr_res < optimalValue)
                 {
-                    System.arraycopy(curr_path, 0, optimal_path, 0, N);
+                    System.arraycopy(currentPath, 0, optimal_path, 0, N);
 
-                    optimal_path[N] = curr_path[0];
-                    final_res = curr_res;
+                    optimal_path[N] = currentPath[0];
+                    optimalValue = curr_res;
                 }
             }
             return;
@@ -148,30 +147,30 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < N; i++)
         {
-            if (adj[curr_path[level-1]][i] != 0 && !visited[i])
+            if (adj[currentPath[level-1]][i] != 0 && !visited[i])
             {
-                int temp = curr_bound;
-                curr_weight += adj[curr_path[level - 1]][i];
+                int temp = currentBound;
+                currentWeight += adj[currentPath[level - 1]][i];
                 
                 if (level==1)
-                    curr_bound -= ((firstMin(adj, curr_path[level - 1]) + firstMin(adj, i))/2);
+                    currentBound -= ((firstMin(adj, currentPath[level - 1]) + firstMin(adj, i))/2);
                 else
-                    curr_bound -= ((secondMin(adj, curr_path[level - 1]) + firstMin(adj, i))/2);
+                    currentBound -= ((nextMin(adj, currentPath[level - 1]) + firstMin(adj, i))/2);
                 
-                if (curr_bound + curr_weight < final_res)
+                if (currentBound + currentWeight < optimalValue)
                 {
-                    curr_path[level] = i;
+                    currentPath[level] = i;
                     visited[i] = true;
 
-                    TSPRec(adj, curr_bound, curr_weight, level + 1, curr_path);
+                    findTSP(adj, currentBound, currentWeight, level + 1, currentPath);
                 }
                 
-                curr_weight -= adj[curr_path[level-1]][i];
-                curr_bound = temp;
+                currentWeight -= adj[currentPath[level-1]][i];
+                currentBound = temp;
 
                 Arrays.fill(visited,false);
                 for (int j = 0; j <= level - 1; j++)
-                    visited[curr_path[j]] = true;
+                    visited[currentPath[j]] = true;
             }
         }
     }
@@ -186,14 +185,14 @@ public class MainActivity extends AppCompatActivity {
         
         for (int i = 0; i < N; i++)
             curr_bound += (firstMin(adj, i) +
-                    secondMin(adj, i));
+                    nextMin(adj, i));
 
         curr_bound = (curr_bound==1)? curr_bound/2 + 1 : curr_bound/2;
         
         visited[0] = true;
         curr_path[0] = 0;
 
-        TSPRec(adj, curr_bound, 0, 1, curr_path);
+        findTSP(adj, curr_bound, 0, 1, curr_path);
     }
     
 }
